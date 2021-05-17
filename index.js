@@ -73,6 +73,6 @@ app.post('/index', upload.single('image'), (req, res, next) => {
 })
 
 //////////////////////////// SERVER LISTENER ////////////////////////////\
-var server = app.listen(port, () =>{
-    //console.log("The server is now running at http://localhost:" + port);
-})	
+var server = app.listen(process.env.PORT || 3000, () =>{
+    //console.log("The server is now running at http://localhost:" + PORT);
+})
