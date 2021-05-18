@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style2.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main-content">
+      <!-- Top navbar -->
+      
+      <!-- Header -->
+      <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(https://raw.githack.com/creativetimofficial/argon-dashboard/master/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+        <!-- Mask -->
+        <span class="mask bg-gradient-default opacity-8"></span>
+        <!-- Header container -->
+        <div class="container-fluid d-flex align-items-center">
+          <div class="row">
+            <div class="col-lg-7 col-md-10">
+              <h1 class="display-2 text-white">Hello <%= locals.username%></h1>
+              <p class="text-white mt-0 mb-5"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Page content -->
+      <div class="container-fluid mt--7">
+        <div class="row align-items-center">
+          <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0 align-items-center">
+            <div class="card card-profile shadow align-items-center">
+              <div class="row justify-content-center align-items-center">
+                <div class="col-lg-3 order-lg-2 align-items-center">
+                  <div class="card-profile-image align-items-center">
+                    <a href="#">
+                      Image here looks like **** if you dont reshape the input image at the first time
+                      <img src="data:items/<%=items[0].img.contentType%>;base64,<%=items[0].img.data.toString('base64')%>" class="rounded-circle">
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                <div class="d-flex justify-content-between">
+                  
+                </div>
+              </div>
+              <div class="card-body pt-0 pt-md-4 align-items-center">
+                <div class="row">
+                  <div class="col">
+                    <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                      <div>
+                        <span class="heading">22</span>
+                        <span class="description">Friends</span>
+                      </div>
+                      <div>
+                        <span class="heading">10</span>
+                        <span class="description">Photos</span>
+                      </div>
+                      <div>
+                        <span class="heading">89</span>
+                        <span class="description">Comments</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="text-center">
+                  <h3>
+                    <%= locals.username%><span class="font-weight-light"></span>
+                  </h3>
+                  <div>
+                    <i class="ni education_hat mr-2"></i>
+                  </div>
+
+                  <div>
+                    <i class="ni education_hat mr-2"></i>
+                  </div>
+                  <hr class="my-4">
+                  <a href="/logout" class="btn btn-sm btn-primary">Logout</a>
+                  <hr class="my-4">
+                  <form action="/index2" method="POST" enctype="multipart/form-data">
+                    <div class="mt-4 align-items-center">
+                      <label for="image">Upload Image</label>
+                      <input type="file" id="image"
+                             name="image" value="" required>
+                    </div>
+                    <div class="mt-4">
+                      <button type="submit">Submit</button>
+                    </div>
+                  </form>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <footer class="footer">
+      <div class="row align-items-center justify-content-xl-between">
+        <div class="col-xl-6 m-auto text-center">
+          <div class="copyright">
+            <p>Made with <a href="https://www.creative-tim.com/product/argon-dashboard" target="_blank">Argon Dashboard</a> by Creative Tim</p>
+          </div>
+        </div>
+      </div>
+    </footer> -->
+</body>
+</html>
