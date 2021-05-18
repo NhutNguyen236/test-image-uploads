@@ -36,7 +36,11 @@
                   <div class="card-profile-image align-items-center">
                     <a href="#">
                       <!-- Image here looks like **** if you dont reshape the input image at the first time -->
-                      <img src="data:items/<%=items[0].img.contentType%>;base64,<%=items[0].img.data.toString('base64')%>" class="rounded-circle">
+                      <% if(locals.items.length != 0) { %>
+                        <img src="data:items/<%=items[0].img.contentType%>;base64,<%=items[0].img.data.toString('base64')%>" class="rounded-circle">
+                      <% }else{ %>
+                        <img src="https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png" class="rounded-circle">
+                      <% } %>
                     </a>
                   </div>
                 </div>
