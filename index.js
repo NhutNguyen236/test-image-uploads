@@ -5,6 +5,7 @@ var fs = require('fs')
 var path = require('path')
 var session = require('express-session')
 var bodyParser = require('body-parser')
+var multer = require('multer')
 
 var app = express();
 
@@ -36,17 +37,47 @@ app.use(session({
 	saveUninitialized: true
 }))
 
-/////////////////////////////////////// FILE STORAGE CONFIG //////////////////////////
-var multer = require('multer');
- 
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
+/////////////////////////////////////// CLOUDINARY CONFIG ////////////////////////////
+// I still dont have public_id on Cloudinary for each uploaded image
+const cloudinary = require('cloudinary').v2;
+
+// You can find the tut here: https://www.freecodecamp.org/news/how-to-allow-users-to-upload-images-with-node-express-mongoose-and-cloudinary-84cefbdff1d9/
+// I dunno why but this link got something wrong in it but basically, the theory in here is quite usable
+
+cloudinary.config({
+    cloud_name: "dup5vuryj",
+    api_key: "254592227425713",
+    api_secret: "5Lo9nzwORU9bg0mvRpxgmEgFibc"
+})
+
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    // params: {
+    //     folder: 'some-folder-name',
+    //     format: async (req, file) => 'png', // supports promises as well
+    //     public_id: (req, file) => 'computed-filename-using-request',
+    // },
+    params: {
+        folder: "UserPictures",
+        allowedFormats: ["jpg", "png"],
+        transformation: [{
+            width: 500,
+            height: 500,
+            crop: "limit"
+        }]
     }
-});
+})
+ 
+// var storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'uploads')
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, file.fieldname + '-' + Date.now())
+//     }
+// });
  
 var upload = multer({ storage: storage });
 
@@ -123,10 +154,8 @@ app.post('/index2', upload.single('image'), (req, res, next) => {
     console.log(req.file)
     var obj = {
         userid: req.session.userid,
-        img: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
-        }
+        imageurl: req.file.path,
+        cloudinaryid: req.file.public_id
     }
 
     // Look up profile pic in Db with userid
@@ -162,6 +191,7 @@ app.post('/index2', upload.single('image'), (req, res, next) => {
         }
     })
 })
+
 
 app.get('/logout', (req, res) => {
  
